@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.bpfaas</groupId>
+        <artifactId>dependencies</artifactId>
+        <version>${revision}</version>
+        <relativePath>./dependencies/pom.xml</relativePath> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>com.bpfaas</groupId>
+    <artifactId>bp-common</artifactId>
+    <packaging>jar</packaging>
+
+    <name>bp-common</name>
+    <url>https://github.com/bpfaas/java-bp-common.git</url>
+    <description>The common libraries.</description>
+    <licenses>
+        <license>
+            <name>The MIT License</name>
+            <url>https://opensource.org/licenses/mit/</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <url>https://github.com/bpfaas/java-bp-common.git</url>
+        <connection>https://github.com/bpfaas/java-bp-common.git</connection>
+    </scm>
+    <developers>
+        <developer>
+            <name>brian</name>
+            <id>brainpoint</id>
+            <email>bpoint.lee@live.com</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+
+    <properties>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>
