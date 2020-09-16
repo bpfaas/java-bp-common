@@ -1,3 +1,16 @@
+
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.bpfaas/bp-common/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.bpfaas/bp-common/)
+[![License](https://img.shields.io/github/license/bpfaas/java-bp-common)](https://opensource.org/licenses/MIT)
+
+
+```html
+<dependency>
+    <groupId>com.bpfaas</groupId>
+    <artifactId>bp-common</artifactId>
+    <version>0.0.1</version>
+</dependency>
+```
+
 包含如下内容:
 
 - 约定返回对象格式
