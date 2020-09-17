@@ -14,13 +14,13 @@ import lombok.Getter;
  * 
  * 而不会按照Msg消息格式返回.
  */
-public class FaasRawMsgException extends FaasRuntimeException {
+public class BpRawMsgException extends BpRuntimeException {
   private static final long serialVersionUID = -5526784669061817583L;
   
   @Getter
   private final int httpStatusCode;
 
-  public FaasRawMsgException(String message, int httpStatusCode) {
+  public BpRawMsgException(String message, int httpStatusCode) {
     super(message);
     this.httpStatusCode = httpStatusCode;
   }

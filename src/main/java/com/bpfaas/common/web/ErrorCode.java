@@ -50,19 +50,19 @@ public enum ErrorCode {
      */
     OPERATOR_ERROR(417),
     /**
-     * @desc: 应用调用次数超限; (此处应用为使用 appid 调用的应用).
+     * 应用调用次数超限; (此处应用为使用 appid 调用的应用).
      */
     APPCALL_LIMITED(444),
     /**
-     * @desc: 当前的操作过于频繁, 稍后继续操作
+     * 当前的操作过于频繁, 稍后继续操作
      */
     OPERATOR_LIMITED(445),
     /**
-     * @desc: 内部错误或是不合法的调用引起
+     * 内部错误或是不合法的调用引起
      */
     SERVICE_ERROR(500),
     /**
-     * @desc: 服务不可用, 可能为负载过重或内部服务超时
+     * 服务不可用, 可能为负载过重或内部服务超时
      */
     SERVICE_UNAVAILABLE(504);
 

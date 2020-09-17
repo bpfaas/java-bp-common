@@ -12,19 +12,19 @@ package com.bpfaas.common.exception;
  * @author pengxiang.li
  * @date 2020/7/1 4:51 下午
  */
-public class ExecuteCommandException extends FaasException {
+public class BpExecuteCommandException extends BpException {
     private static final long serialVersionUID = -5996617354987319003L;
 
-    public ExecuteCommandException() {
+    public BpExecuteCommandException() {
         super();
     }
-    public ExecuteCommandException(String message) {
+    public BpExecuteCommandException(String message) {
         super(message);
     }
-    public ExecuteCommandException(String message, Throwable cause) {
+    public BpExecuteCommandException(String message, Throwable cause) {
         super(message, cause);
     }
-    public ExecuteCommandException(Throwable cause) {
+    public BpExecuteCommandException(Throwable cause) {
         super(cause);
     }
 }

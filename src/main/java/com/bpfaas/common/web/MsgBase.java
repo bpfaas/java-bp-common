@@ -56,12 +56,16 @@ public class MsgBase {
 
     /**
      * 设置trace对象.
+     * @param trace trace 信息
      */
     public void setTrace(TraceObject trace) {
         this.trace = trace;
     }
     /**
      * 设置trace对象.
+     * @param operator 操作者
+     * @param timeAt   发生的时间
+     * @param debugSys 需要调试的系统名
      */
     public void setTrace(String operator, Date timeAt, String debugSys) {
         if (null == this.trace) {
@@ -73,6 +77,8 @@ public class MsgBase {
     }
     /**
      * 设置trace对象.
+     * @param operator 操作者
+     * @param timeAt   发生的时间
      */
     public void setTrace(String operator, Date timeAt) {
         if (null == this.trace) {

@@ -12,22 +12,22 @@ package com.bpfaas.common.exception;
  * @author pengxiang.li
  * @date 2020/7/1 4:51 下午
  */
-public class NotFoundException extends FaasRuntimeException {
+public class BpNotFoundException extends BpRuntimeException {
     private static final long serialVersionUID = 4773921674738374416L;
 
-    public NotFoundException() {
+    public BpNotFoundException() {
         super();
     }
 
-    public NotFoundException(String message) {
+    public BpNotFoundException(String message) {
         super(message);
     }
 
-    public NotFoundException(String message, Throwable cause) {
+    public BpNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public NotFoundException(Throwable cause) {
+    public BpNotFoundException(Throwable cause) {
         super(cause);
     }
 }

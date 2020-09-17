@@ -12,17 +12,17 @@ package com.bpfaas.common.exception;
  * @author pengxiang.li
  * @date 2020/7/1 5:30 下午
  */
-public class DatabaseException extends FaasException {
+public class BpDBException extends BpException {
 	private static final long serialVersionUID = 1749850513565294722L;
 
-	public DatabaseException() { super(); }
-    public DatabaseException(String message) {
+	public BpDBException() { super(); }
+    public BpDBException(String message) {
         super(message);
     }
-    public DatabaseException(String message, Throwable cause) {
+    public BpDBException(String message, Throwable cause) {
         super(message, cause);
     }
-    public DatabaseException(Throwable cause) {
+    public BpDBException(Throwable cause) {
         super(cause);
     }
 }

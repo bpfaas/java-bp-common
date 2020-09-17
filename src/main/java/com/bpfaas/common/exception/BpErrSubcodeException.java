@@ -12,7 +12,7 @@ import lombok.Getter;
  * @author pengxiang.li
  * @date 2020/7/1 4:51 下午
  */
-public class ErrSubcodeException extends RuntimeException {
+public class BpErrSubcodeException extends RuntimeException {
     private static final long serialVersionUID = -1259159488139971417L;
 
     /**
@@ -21,18 +21,18 @@ public class ErrSubcodeException extends RuntimeException {
     @Getter
     private String errSubCode;
 
-    public ErrSubcodeException() {
+    public BpErrSubcodeException() {
         super();
     }
-    public ErrSubcodeException(String errSubCode) {
+    public BpErrSubcodeException(String errSubCode) {
         super(errSubCode);
         this.errSubCode = errSubCode;
     }
-    public ErrSubcodeException(String errSubCode, Throwable cause) {
+    public BpErrSubcodeException(String errSubCode, Throwable cause) {
         super(errSubCode, cause);
         this.errSubCode = errSubCode;
     }
-    public ErrSubcodeException(Throwable cause) {
+    public BpErrSubcodeException(Throwable cause) {
         super(cause);
     }
 }

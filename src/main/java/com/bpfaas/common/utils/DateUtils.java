@@ -28,6 +28,7 @@ public class DateUtils {
   /**
    * 将本地时间转换为utc字符串.
    * 
+   * @param date 要进行字符串格式化的时间.
    * @return yyyyMMddHHmmssSSS
    */
   public static String date2utcstr(Date date) {

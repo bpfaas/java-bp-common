@@ -31,7 +31,7 @@ public class Response {
 
     /**
      * Get response headers map.
-     * @return
+     * @return headers map
      */
     public Map<String, Collection<String>> getHeaders() {
         return this.headers;
@@ -39,8 +39,8 @@ public class Response {
 
     /**
      * Get response header by key.
-     * @param key
-     * @return
+     * @param key header键名
+     * @return 指定key的head值.
      */
     public Collection<String> getHeader(String key) {
         if(!this.headers.containsKey(key)) {
@@ -52,8 +52,8 @@ public class Response {
 
     /**
      * Set response header by key and value.
-     * @param key
-     * @param value
+     * @param key header键名
+     * @param value 对应的值
      */
     public void setHeader(String key, String value) {
         Collection<String> headers1 = this.headers.get(key);
@@ -76,8 +76,8 @@ public class Response {
 
     /**
      * Set response header by key and values
-     * @param key
-     * @param value
+     * @param key header键名
+     * @param value 对应的键值集合
      */
     public void setHeader(String key, Collection<String> value) {
         Collection<String> headers1 = this.headers.get(key);
@@ -91,7 +91,7 @@ public class Response {
 
     /**
      * Remove response header by key
-     * @param key
+     * @param key header键名
      */
     public void removeHeader(String key) {
         this.headers.remove(key);

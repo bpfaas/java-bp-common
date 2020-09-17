@@ -21,7 +21,9 @@ public class PathUtils {
   /**
    * join path use File.separator
    * 
-   * @return
+   * @param paths 需要进行连接的路径
+   * 
+   * @return 返回连接各子段后的路径
    */
   public static String join(String... paths) {
     StringBuilder buf = new StringBuilder("");

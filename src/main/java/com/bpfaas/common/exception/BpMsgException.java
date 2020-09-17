@@ -7,27 +7,27 @@
 package com.bpfaas.common.exception;
 
 /**
- * Json parse and stringify Exception
+ * Msg Exception
  *
  * @author pengxiang.li
  * @date 2020/7/1 4:51 下午
  */
-public class JsonException extends FaasException {
-    private static final long serialVersionUID = -5996617354987319003L;
+public class BpMsgException extends BpRuntimeException {
+    private static final long serialVersionUID = -1481460277551765527L;
 
-    public JsonException() {
+    public BpMsgException() {
         super();
     }
 
-    public JsonException(String message) {
+    public BpMsgException(String message) {
         super(message);
     }
 
-    public JsonException(String message, Throwable cause) {
+    public BpMsgException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public JsonException(Throwable cause) {
+    public BpMsgException(Throwable cause) {
         super(cause);
     }
 }

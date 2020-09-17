@@ -4,7 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 
-import com.bpfaas.common.exception.ExecuteCommandException;
+import com.bpfaas.common.exception.BpExecuteCommandException;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -27,8 +28,9 @@ public class CommandUtils {
    * 
    * @param cmd 命令.
    * @return 命令进程退出code.
+   * @throws BpExecuteCommandException 命令执行错误时发生
    */
-  public static ExecResult exec(String cmd) throws ExecuteCommandException {
+  public static ExecResult exec(String cmd) throws BpExecuteCommandException {
     return exec(new String[] { cmd }, null, null, null, null);
   }
 
@@ -39,9 +41,10 @@ public class CommandUtils {
    * @param infoStream 提供接口以便接收信息流.
    * @param errStream  提供接口以便接收错误流.
    * @return 命令进程退出code.
+   * @throws BpExecuteCommandException 命令执行错误时发生
    */
   public static ExecResult exec(String cmd, ICommandStream infoStream, ICommandStream errStream)
-      throws ExecuteCommandException {
+      throws BpExecuteCommandException {
     return exec(new String[] { cmd }, null, null, infoStream, errStream);
   }
 
@@ -50,8 +53,9 @@ public class CommandUtils {
    * 
    * @param cmdarray 命令及参数.
    * @return 命令进程退出code.
+   * @throws BpExecuteCommandException 命令执行错误时发生
    */
-  public static ExecResult exec(String[] cmdarray) throws ExecuteCommandException {
+  public static ExecResult exec(String[] cmdarray) throws BpExecuteCommandException {
     return exec(cmdarray, null, null, null, null);
   }
 
@@ -62,9 +66,10 @@ public class CommandUtils {
    * @param infoStream 提供接口以便接收信息流.
    * @param errStream  提供接口以便接收错误流.
    * @return 命令进程退出code.
+   * @throws BpExecuteCommandException 命令执行错误时发生
    */
   public static ExecResult exec(String[] cmdarray, ICommandStream infoStream, ICommandStream errStream)
-      throws ExecuteCommandException {
+      throws BpExecuteCommandException {
     return exec(cmdarray, null, null, infoStream, errStream);
   }
 
@@ -74,8 +79,9 @@ public class CommandUtils {
    * @param cmdarray 命令及参数.
    * @param envp     环境变量; 格式为 <i>name</i>=<i>value</i>
    * @return 命令进程退出code.
+   * @throws BpExecuteCommandException 命令执行错误时发生
    */
-  public static ExecResult exec(String[] cmdarray, String[] envp) throws ExecuteCommandException {
+  public static ExecResult exec(String[] cmdarray, String[] envp) throws BpExecuteCommandException {
     return exec(cmdarray, envp, null, null, null);
   }
 
@@ -87,9 +93,10 @@ public class CommandUtils {
    * @param infoStream 提供接口以便接收信息流.
    * @param errStream  提供接口以便接收错误流.
    * @return 命令进程退出code.
+   * @throws BpExecuteCommandException 命令执行错误时发生
    */
   public static ExecResult exec(String[] cmdarray, String[] envp, ICommandStream infoStream, ICommandStream errStream)
-      throws ExecuteCommandException {
+      throws BpExecuteCommandException {
     return exec(cmdarray, envp, null, infoStream, errStream);
   }
 
@@ -102,9 +109,10 @@ public class CommandUtils {
    * @param infoStream 提供接口以便接收信息流.
    * @param errStream  提供接口以便接收错误流.
    * @return 命令进程退出code.
+   * @throws BpExecuteCommandException 命令执行错误时发生
    */
   public static ExecResult exec(String[] cmdarray, String[] envp, String dir, ICommandStream infoStream,
-      ICommandStream errStream) throws ExecuteCommandException {
+      ICommandStream errStream) throws BpExecuteCommandException {
     try {
       Process process = Runtime.getRuntime().exec(cmdarray, envp, dir == null ? null : new File(dir));
 
@@ -150,7 +158,7 @@ public class CommandUtils {
       return result;
     } catch (Exception e) {
       log.error("exec error", e);
-      throw new ExecuteCommandException(e);
+      throw new BpExecuteCommandException(e);
     }
   }
 }

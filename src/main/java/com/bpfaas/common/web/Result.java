@@ -24,7 +24,7 @@ public class Result {
   /**
    * 使用错误消息构造
    * 
-   * @param errMsg
+   * @param errMsg 错误消息
    */
   public Result(String errMsg) {
     this.errMsg = errMsg;

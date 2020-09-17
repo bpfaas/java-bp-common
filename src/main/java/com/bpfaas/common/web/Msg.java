@@ -9,7 +9,7 @@ package com.bpfaas.common.web;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.bpfaas.common.exception.MsgException;
+import com.bpfaas.common.exception.BpMsgException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -19,14 +19,14 @@ import lombok.Setter;
 
 /**
  * 网络消息包.
- *
+ * <pre>
  * <code>
- *     // To create a HashMap data.
- *     new Msg&lt;Object&mt;();
- *
- *     // To create a AnyEntity data.
- *     new Msg&lt;AnyEntity&mt;();
+ * // To create a HashMap data.
+ * new Msg&lt;Object&gt;();
+ * // To create a AnyEntity data.
+ * new Msg&lt;AnyEntity&gt;();
  * </code>
+ * </pre>
  *
  * @author pengxiang.li
  * @date 2020/6/12 2:55 下午
@@ -71,6 +71,8 @@ public class Msg<T> extends MsgBase {
 
   /**
    * 使用指定对象作为data.
+   * 
+   * @param data 设置此对象为业务数据
    */
   @JsonIgnore
   public void setDataWithObject(T data) {
@@ -79,8 +81,8 @@ public class Msg<T> extends MsgBase {
 
   /**
    * 设置业务数据.
-   * @param key
-   * @param value
+   * @param key 指定的键
+   * @param value 对应的value
    */
   @SuppressWarnings("unchecked")
   public void setData(final String key, Object value) {
@@ -94,11 +96,11 @@ public class Msg<T> extends MsgBase {
         data = (T) new HashMap<String, Object>();
       }
       catch (ClassCastException e) {
-        throw new MsgException("cannot invoke Msg.setData, because its data has a Type.", e);
+        throw new BpMsgException("cannot invoke Msg.setData, because its data has a Type.", e);
       }
     }
     else if (!(data instanceof HashMap<?, ?>)) {
-      throw new MsgException("cannot invoke Msg.setData, because its data has a Type.");
+      throw new BpMsgException("cannot invoke Msg.setData, because its data has a Type.");
     }
 
     ((Map<String, Object>)data).put(key, value);
@@ -106,7 +108,7 @@ public class Msg<T> extends MsgBase {
 
   /**
    * 移除指定的业务数据
-   * @param key
+   * @param key 要移除的key
    */
   @SuppressWarnings("unchecked")
   public void removeData(final String key) {
@@ -118,16 +120,16 @@ public class Msg<T> extends MsgBase {
       ((Map<String, Object>)data).remove(key);
     }
     else {
-      throw new MsgException("cannot invoke Msg.removeData, because its data has a Type.");
+      throw new BpMsgException("cannot invoke Msg.removeData, because its data has a Type.");
     }
   }
 
   /**
-   * 获取指定的业务数据.
+   * 获取指定的业务数据.并使用泛型类型指定值的类型.
    *
-   * @param key
-   * @param <T1>
-   * @return
+   * @param <T1>  泛型类型; 用于接受一个进行泛型转换的类.
+   * @param key 要获取的键
+   * @return 返回业务数据
    */
   @SuppressWarnings("unchecked")
   public <T1> T1 getData(final String key) {
@@ -139,7 +141,7 @@ public class Msg<T> extends MsgBase {
       return (T1)((Map<String, Object>)data).get(key);
     }
     catch (ClassCastException e) {
-      throw new MsgException("cannot invoke Msg.getData, because its data has a Type.", e);
+      throw new BpMsgException("cannot invoke Msg.getData, because its data has a Type.", e);
     }
   }
 }

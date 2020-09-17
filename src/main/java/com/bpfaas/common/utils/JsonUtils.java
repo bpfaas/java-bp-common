@@ -14,7 +14,7 @@ import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
-import com.bpfaas.common.exception.JsonException;
+import com.bpfaas.common.exception.BpJsonException;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -82,54 +82,76 @@ public class JsonUtils {
 
   /**
    * 解析json字符串.
+   * <pre>
+   * <code>
+   *  
+   * Object obj = JsonUtils.parse("{}"); 
    * 
-   * &lt;code&gt; Object obj = JsonUtils.parse("..."); &lt;/code&gt;
+   * </code>
+   * </pre>
    * 
+   * @param text json字符串
    * @return 返回Object类型的对象.
+   * @throws BpJsonException 无法解析或无法构造json时出错.
    */
-  public static Object parse(String text) throws JsonException {
+  public static Object parse(String text) throws BpJsonException {
     try {
       return objectMapper.readValue(text, Object.class);
     } catch (JsonParseException ex) {
-      throw new JsonException(ex);
+      throw new BpJsonException(ex);
     } catch (JsonMappingException ex) {
-      throw new JsonException(ex);
+      throw new BpJsonException(ex);
     } catch (IOException ex) {
-      throw new JsonException(ex);
+      throw new BpJsonException(ex);
     }
   }
 
   /**
    * 解析json字符串.
+   * <pre>
+   * <code>
+   *  
+   * DemoBean obj = JsonUtils.parse("{}", DemoBean.class);
    * 
-   * &lt;code&gt; Object obj = JsonUtils.parse("...", Object.class); &lt;/code&gt;
+   * </code>
+   * </pre>
    * 
+   * @param <T>  泛型类型; 用于接受一个进行泛型转换的类.
+   * @param text 要解析的json字符串
+   * @param valueType 泛型类型是模板T的泛型信息.
    * @return 返回指定类型的对象.
+   * @throws BpJsonException 无法解析或无法构造json时出错.
    */
-  public static <T> T parse(String text, Class<T> valueType) throws JsonException {
+  public static <T> T parse(String text, Class<T> valueType) throws BpJsonException {
     try {
       return objectMapper.readValue(text, valueType);
     } catch (JsonParseException ex) {
-      throw new JsonException(ex);
+      throw new BpJsonException(ex);
     } catch (JsonMappingException ex) {
-      throw new JsonException(ex);
+      throw new BpJsonException(ex);
     } catch (IOException ex) {
-      throw new JsonException(ex);
+      throw new BpJsonException(ex);
     }
   }
 
   /**
    * 解析json字符串. 并返回指定泛型类型
+   * <pre>
+   * <code>
    * 
+   * Msg&lt;Object&gt; t = new Msg&lt;Object&gt;(); 
+   * Msg&lt;Object&gt; obj = JsonUtils.parse("{}",
+   *                             (ParameterizedType)t.getClass().getGenericSuperclass()); 
+   * </code>
+   * </pre>
+   * 
+   * @param <T>  泛型类型; 用于接受一个进行泛型转换的类.
+   * @param text 要解析的json字符串
    * @param valueType 泛型类型是模板T的泛型信息.
-   * 
-   *                  &lt;code&gt; Msg<Object> t = new Msg<Object>(); Msg<Object>
-   *                  obj = JsonUtils.parse("...",
-   *                  (ParameterizedType)t.getClass()); &lt;/code&gt;
-   * 
    * @return 返回指定泛型类型的对象.
+   * @throws BpJsonException 无法解析或无法构造json时出错.
    */
-  public static <T> T parse(String text, final ParameterizedType valueType) throws JsonException {
+  public static <T> T parse(String text, final ParameterizedType valueType) throws BpJsonException {
     try {
       TypeReference<T> typeReference = new TypeReference<T>() {
         @Override
@@ -140,22 +162,26 @@ public class JsonUtils {
 
       return objectMapper.readValue(text, typeReference);
     } catch (JsonParseException ex) {
-      throw new JsonException(ex);
+      throw new BpJsonException(ex);
     } catch (JsonMappingException ex) {
-      throw new JsonException(ex);
+      throw new BpJsonException(ex);
     } catch (IOException ex) {
-      throw new JsonException(ex);
+      throw new BpJsonException(ex);
     }
   }
 
   /**
    * 将对象json化.
+   * 
+   * @param obj 要字符串化的对象
+   * @return json字符串
+   * @throws BpJsonException 无法解析或无法构造json时出错.
    */
-  public static String stringify(Object obj) throws JsonException {
+  public static String stringify(Object obj) throws BpJsonException {
     try {
       return objectMapper.writeValueAsString(obj);
     } catch (JsonProcessingException e) {
-      throw new JsonException(e);
+      throw new BpJsonException(e);
     }
   }
 }

@@ -16,40 +16,46 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
-import com.bpfaas.common.exception.FaasException;
-import lombok.extern.slf4j.Slf4j;
+import com.bpfaas.common.exception.BpException;
 
-@Slf4j
 public class FileUtils {
 
   /**
    * Assure the directory is existed.
    * 
-   * @return
+   * @param destDirPath 要创建的目录
+   * @return 如果目录已存在则返回false
+   * @throws BpException 操作文件发生错误时发生; 可能为IO错误或权限错误
    */
-  public static boolean assureDir(String destDirName) {
-    if (!destDirName.endsWith(File.separator)) {
-      destDirName = destDirName + File.separator;
+  public static boolean assureDir(String destDirPath) throws BpException {
+    if (!destDirPath.endsWith(File.separator)) {
+      destDirPath = destDirPath + File.separator;
     }
-    File dir = new File(destDirName);
-    if (dir.exists() && dir.isDirectory()) {
-      return false;
-    }
-    // 创建目录
-    if (dir.mkdirs()) {
-      return true;
-    } else {
-      return false;
+
+    try {
+      File dir = new File(destDirPath);
+      if (dir.exists() && dir.isDirectory()) {
+        return false;
+      }
+      // 创建目录
+      if (dir.mkdirs()) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (Exception e) {
+      throw new BpException("fileRemove error", e);
     }
   }
 
   /**
    * copy directory
    * 
-   * @param sourcePath
-   * @param newPath
+   * @param src source dir
+   * @param dest dest dir
+   * @throws BpException 操作文件发生错误时发生; 可能为IO错误或权限错误
    */
-  public static void dirCopy(String src, String dest) throws FaasException {
+  public static void dirCopy(String src, String dest) throws BpException {
     File start = new File(src);
     File end = new File(dest);
     String[] filePath = start.list();
@@ -76,8 +82,12 @@ public class FileUtils {
 
   /**
    * remove dir.
+   * 
+   * @param path 要删除的目录.
+   * @return 表示是否发生删除动作
+   * @throws BpException 操作文件发生错误时发生; 可能为IO错误或权限错误
    */
-  public static boolean dirRemoveRecursive(String path) {
+  public static boolean dirRemoveRecursive(String path) throws BpException {
     File file = new File(path);
     if (!file.exists()) {
       return false;
@@ -88,8 +98,12 @@ public class FileUtils {
     File[] files = file.listFiles();
     for (File f : files) {
       if (f.isFile()) {
-        if (!f.delete()) {
-          return false;
+        try {
+          if (!f.delete()) {
+            return false;
+          }
+        } catch (Exception e) {
+          throw new BpException("fileRemove error", e);
         }
       } else {
         if (!dirRemoveRecursive(f.getAbsolutePath())) {
@@ -97,19 +111,31 @@ public class FileUtils {
         }
       }
     }
-    return file.delete();
+    try {
+      return file.delete();
+    } catch (Exception e) {
+      throw new BpException("fileRemove error", e);
+    }
   }
 
   /**
    * remove file.
+   * 
+   * @param path 要删除的文件
+   * @return 表示是否发生删除动作
+   * @throws BpException 操作文件发生错误时发生; 可能为IO错误或权限错误
    */
-  public static boolean fileRemove(String path) {
+  public static boolean fileRemove(String path) throws BpException {
     File file = new File(path);
     if (!file.exists()) {
       return false;
     }
     if (file.isFile()) {
-      return file.delete();
+      try {
+        return file.delete();
+      } catch (Exception e) {
+        throw new BpException("fileRemove error", e);
+      }
     }
     return false;
   }
@@ -117,10 +143,11 @@ public class FileUtils {
   /**
    * copy file.
    * 
-   * @param src
-   * @param dest
+   * @param src source file
+   * @param dest dest file
+   * @throws BpException 操作文件发生错误时发生; 可能为IO错误或权限错误
    */
-  public static void fileCopy(String src, String dest) throws FaasException {
+  public static void fileCopy(String src, String dest) throws BpException {
     File start = new File(src);
     File end = new File(dest);
     try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(start));
@@ -132,7 +159,7 @@ public class FileUtils {
       }
       bos.flush();
     } catch (Exception e) {
-      throw new FaasException("fileCopy error", e);
+      throw new BpException("fileCopy error", e);
     }
   }
 
@@ -140,7 +167,9 @@ public class FileUtils {
    * 读取inputstream文本.
    * 
    * @param is 输入流; 操作完成后未对流进行 close.
+   * @param charsetName 按此编码读取
    * @return 文本内容.
+   * @throws IOException 无法写入或读取文件时发生
    */
   public static String readFile(InputStream is, String charsetName) throws IOException {
 
@@ -164,7 +193,9 @@ public class FileUtils {
    * 读取文件文本.
    * 
    * @param file 文件句柄
+   * @param charsetName 按此编码读取
    * @return 文本内容.
+   * @throws IOException 无法写入或读取文件时发生
    */
   public static String readFile(File file, String charsetName) throws IOException {
 
@@ -191,6 +222,7 @@ public class FileUtils {
    * 
    * @param file 文件句柄
    * @return 文本内容.
+   * @throws IOException 无法写入或读取文件时发生
    */
   public static String readFile(File file) throws IOException {
     return readFile(file, StandardCharsets.UTF_8.name());
@@ -200,7 +232,9 @@ public class FileUtils {
    * 读取文件文本.
    * 
    * @param filepath 文件路径
+   * @param charsetName 按此编码读取
    * @return 文本内容.
+   * @throws IOException 无法写入或读取文件时发生
    */
   public static String readFile(String filepath, String charsetName) throws IOException {
     return readFile(new File(filepath), charsetName);
@@ -211,6 +245,7 @@ public class FileUtils {
    * 
    * @param filepath 文件路径
    * @return 文本内容.
+   * @throws IOException 无法写入或读取文件时发生
    */
   public static String readFile(String filepath) throws IOException {
     return readFile(new File(filepath), StandardCharsets.UTF_8.name());
@@ -221,7 +256,8 @@ public class FileUtils {
    * 
    * @param file    文件句柄
    * @param content 要写入的文本
-   * @return 文本内容.
+   * @param charsetName 写入文本的编码
+   * @throws IOException 无法写入或读取文件时发生
    */
   public static void writeFile(File file, String content, String charsetName) throws IOException {
     try (OutputStream os = new FileOutputStream(file)) {
@@ -233,7 +269,8 @@ public class FileUtils {
    * 写入文件文本 (utf8).
    * 
    * @param file 文件句柄
-   * @return 文本内容.
+   * @param content 要写入的文本
+   * @throws IOException 无法写入或读取文件时发生
    */
   public static void writeFile(File file, String content) throws IOException {
     writeFile(file, content, StandardCharsets.UTF_8.name());
@@ -243,7 +280,9 @@ public class FileUtils {
    * 写入文件文本.
    * 
    * @param filepath 文件路径
-   * @return 文本内容.
+   * @param content 要写入的文本
+   * @param charsetName 写入文本的编码
+   * @throws IOException 无法写入或读取文件时发生
    */
   public static void writeFile(String filepath, String content, String charsetName) throws IOException {
     writeFile(new File(filepath), content, charsetName);
@@ -253,7 +292,8 @@ public class FileUtils {
    * 写入文件文本 (utf8).
    * 
    * @param filepath 文件路径
-   * @return 文本内容.
+   * @param content 要写入的utf8编码文本
+   * @throws IOException 无法写入文件时发生
    */
   public static void writeFile(String filepath, String content) throws IOException {
     writeFile(new File(filepath), content, StandardCharsets.UTF_8.name());
