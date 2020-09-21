@@ -36,7 +36,7 @@
 
     <properties>
         <!-- Project revision -->
-        <revision>0.0.2</revision>
+        <revision>0.0.3</revision>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -46,7 +46,7 @@
 
         <!-- Dependency Versions -->
         <spring.boot.version>2.2.7.RELEASE</spring.boot.version>
-        <jackson.version>2.9.8</jackson.version>
+        <jackson.version>2.11.2</jackson.version>
         <lombok.version>1.18.12</lombok.version>
     </properties>
 

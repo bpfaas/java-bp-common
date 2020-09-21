@@ -7,7 +7,7 @@
 <dependency>
     <groupId>com.bpfaas</groupId>
     <artifactId>bp-common</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.3</version>
 </dependency>
 ```
 
