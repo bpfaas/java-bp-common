@@ -1,0 +1,24 @@
+###############################
+# task config
+###############################
+platform: linux
+image_resource:
+  type: docker-image
+  source:
+    repository: ((registry-url))/busybox
+    tag: 1.32.0-musl
+    username: ((registry-username))
+    password: ((registry-password))
+    insecure_registries: 
+    - ((registry-url))
+run:
+  path: /bin/sh
+  args:
+  - "-c"
+  - |
+    cd service-source
+    mvn clean package -Drevision.profile="-SNAPSHOT"
+    cd ..
+    mv service-source/target service-package
+    rm -rf service-package/*-sources.jar
+    cp -rf service-source/ci/pom-snapshot.xml service-package/pom.xml
