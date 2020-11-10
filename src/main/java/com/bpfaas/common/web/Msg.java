@@ -144,4 +144,57 @@ public class Msg<T> extends MsgBase {
       throw new BpMsgException("cannot invoke Msg.getData, because its data has a Type.", e);
     }
   }
+
+  public static <T> Msg<T> success(String message, T data) {
+    Msg<T> msg = new Msg(ErrorCode.OK);
+    msg.setErrMsg(message);
+    msg.setDataWithObject(data);
+
+    return msg;
+  }
+
+  public static <T> Msg<T> success(T data) {
+    Msg<T> msg = new Msg(ErrorCode.OK);
+    msg.setDataWithObject(data);
+
+    return msg;
+  }
+
+  public static <T> Msg<T> success() {
+    return new Msg(ErrorCode.OK);
+  }
+
+  public static <T> Msg<T> error(int code, String message, T data) {
+    ErrorCode errorCode = ErrorCode.fromCode(code);
+    Msg<T> msg = new Msg<>(errorCode);
+    msg.setErrMsg(message);
+    msg.setDataWithObject(data);
+    return msg;
+  }
+
+  public static <T> Msg<T> error(int code, String message) {
+    ErrorCode errorCode = ErrorCode.fromCode(code);
+    Msg<T> msg = new Msg<>(errorCode);
+    msg.setErrMsg(message);
+    return msg;
+  }
+
+  public static <T> Msg<T> error(String message, T data) {
+    Msg<T> msg = new Msg<>(ErrorCode.OPERATOR_ERROR);
+    msg.setErrMsg(message);
+    msg.setDataWithObject(data);
+    return msg;
+  }
+
+  public static <T> Msg<T> error(String message) {
+    Msg<T> msg = new Msg<>(ErrorCode.OPERATOR_ERROR);
+    msg.setErrMsg(message);
+    return msg;
+  }
+
+  public static <T> Msg<T> error() {
+    Msg<T> msg = new Msg<>(ErrorCode.OPERATOR_ERROR);
+    return msg;
+  }
+
 }
