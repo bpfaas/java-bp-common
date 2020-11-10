@@ -10,37 +10,19 @@
     <name>bp-common</name>
     <url>https://github.com/bpfaas/java-bp-common.git</url>
     <description>The common libraries.</description>
-    <licenses>
-        <license>
-            <name>The MIT License</name>
-            <url>https://opensource.org/licenses/mit/</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
     <scm>
         <url>https://github.com/bpfaas/java-bp-common.git</url>
         <connection>https://github.com/bpfaas/java-bp-common.git</connection>
     </scm>
-    <developers>
-        <developer>
-            <name>brainpoint</name>
-            <id>brainpoint</id>
-            <email>bpoint.lee@live.com</email>
-            <roles>
-                <role>Developer</role>
-            </roles>
-            <timezone>+8</timezone>
-        </developer>
-    </developers>
 
     <properties>
         <!-- Project revision -->
         <revision>0.0.4</revision>
         <revision.profile>-SNAPSHOT</revision.profile>
-        <repository.snapshotId>ossrh</repository.snapshotId>
-        <repository.snapshotUrl>https://oss.sonatype.org/content/repositories/snapshots/</repository.snapshotUrl>
-        <repository.releaseId>ossrh</repository.releaseId>
-        <repository.releaseUrl>https://oss.sonatype.org/service/local/staging/deploy/maven2/</repository.releaseUrl>
+        <repository.snapshotId>snapshots</repository.snapshotId>
+        <repository.snapshotUrl>http://faas:8081/repository/bpfaas-snapshot/</repository.snapshotUrl>
+        <repository.releaseId>releases</repository.releaseId>
+        <repository.releaseUrl>http://faas:8081/repository/bpfaas-release/</repository.releaseUrl>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -75,45 +57,12 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.9.1</version>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <tags>
-                                <tag>
-                                    <name>date</name>
-                                </tag>
-                            </tags>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
                 </plugins>
             </build>
             <distributionManagement>
                 <snapshotRepository>
                     <id>${repository.snapshotId}</id>
-                    <url>{repository.snapshotUrl}</url>
+                    <url>${repository.snapshotUrl}</url>
                 </snapshotRepository>
                 <repository>
                     <id>${repository.releaseId}</id>
@@ -122,9 +71,6 @@
             </distributionManagement>
         </profile>
     </profiles>
-    
-    <dependencyManagement>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>
